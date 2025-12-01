@@ -20,7 +20,7 @@
             position: relative;
         }
 
-        /* Animated forest background */
+        /* Dark forest background layers */
         .forest-bg {
             position: fixed;
             top: 0;
@@ -28,17 +28,111 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.3;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(34, 68, 34, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(17, 51, 17, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(8, 34, 8, 0.3) 0%, transparent 50%);
-            animation: forestPulse 8s ease-in-out infinite;
+            background: 
+                /* Atmospheric depth layers */
+                radial-gradient(ellipse at 10% 30%, rgba(5, 20, 5, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 90% 70%, rgba(8, 34, 8, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 50%, rgba(5, 20, 5, 0.1) 0%, transparent 70%),
+                /* Base forest atmosphere */
+                linear-gradient(180deg, rgba(5, 20, 5, 0.1) 0%, transparent 50%);
+            animation: forestPulse 10s ease-in-out infinite;
         }
 
         @keyframes forestPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.4; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        /* Tree silhouettes */
+        .trees-back {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .tree {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 3px solid transparent;
+            border-right: 3px solid transparent;
+            border-bottom: 200px solid rgba(5, 20, 5, 0.3);
+        }
+
+        .tree::before {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: -20px;
+            width: 0;
+            height: 0;
+            border-left: 23px solid transparent;
+            border-right: 23px solid transparent;
+            border-bottom: 150px solid rgba(5, 20, 5, 0.25);
+        }
+
+        .tree::after {
+            content: '';
+            position: absolute;
+            bottom: -320px;
+            left: -15px;
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-bottom: 120px solid rgba(5, 20, 5, 0.2);
+        }
+
+        /* Atmospheric fog layers */
+        .fog-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+        }
+
+        .fog-1 {
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.1) 80%,
+                transparent 100%
+            );
+            animation: fogDrift1 25s linear infinite;
+        }
+
+        .fog-2 {
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.08) 30%,
+                rgba(255, 255, 255, 0.12) 60%,
+                rgba(255, 255, 255, 0.08) 90%,
+                transparent 100%
+            );
+            animation: fogDrift2 30s linear infinite reverse;
+        }
+
+        @keyframes fogDrift1 {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes fogDrift2 {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         .container {
@@ -141,6 +235,63 @@
                 0 0 60px rgba(50, 255, 50, 0.2),
                 inset 0 0 20px rgba(200, 255, 200, 0.3);
             animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        /* Light pool beneath plant */
+        .light-pool {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(50, 255, 50, 0.15) 0%, transparent 70%);
+            filter: blur(15px);
+            z-index: -1;
+        }
+
+        /* Light rays emanating from plants */
+        .light-ray {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(
+                180deg,
+                rgba(150, 255, 150, 0.2) 0%,
+                rgba(100, 255, 100, 0.1) 30%,
+                transparent 100%
+            );
+            filter: blur(1px);
+            z-index: -1;
+        }
+
+        .light-ray::before,
+        .light-ray::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(
+                180deg,
+                rgba(150, 255, 150, 0.15) 0%,
+                transparent 100%
+            );
+            filter: blur(1px);
+        }
+
+        .light-ray::before {
+            left: -20px;
+            transform: rotate(-15deg);
+        }
+
+        .light-ray::after {
+            right: -20px;
+            transform: rotate(15deg);
         }
 
         @keyframes glowPulse {
@@ -257,6 +408,9 @@
 </head>
 <body>
     <div class="forest-bg"></div>
+    <div class="fog-layer fog-1"></div>
+    <div class="fog-layer fog-2"></div>
+    <div class="trees-back" id="treesContainer"></div>
     <div class="container">
         <h1 class="main-text">understories</h1>
         <div class="repos-container" id="reposContainer">
@@ -266,6 +420,20 @@
     </div>
 
     <script>
+        function createTrees() {
+            const container = document.getElementById('treesContainer');
+            const treeCount = 8;
+            
+            for (let i = 0; i < treeCount; i++) {
+                const tree = document.createElement('div');
+                tree.className = 'tree';
+                const position = (i / (treeCount - 1)) * 100;
+                tree.style.left = `${position}%`;
+                tree.style.animationDelay = `${i * 0.5}s`;
+                container.appendChild(tree);
+            }
+        }
+
         async function fetchRepos() {
             try {
                 const response = await fetch('https://api.github.com/orgs/understories/repos?per_page=100&sort=updated');
@@ -290,6 +458,8 @@
                     plant.style.animationDelay = `${index * 0.1}s`;
                     
                     plant.innerHTML = `
+                        <div class="light-ray"></div>
+                        <div class="light-pool"></div>
                         <div class="plant-glow"></div>
                         <div class="plant-stem"></div>
                         <div class="plant-leaves">
@@ -314,6 +484,7 @@
             }
         }
         
+        createTrees();
         fetchRepos();
     </script>
 </body>
