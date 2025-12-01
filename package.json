@@ -1,0 +1,12 @@
+{
+  "name": "understories-landing",
+  "version": "1.0.0",
+  "description": "Understories landing page - seeding light in the dark forest",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": ["github-pages", "landing-page"],
+  "author": "",
+  "license": "MIT"
+}
