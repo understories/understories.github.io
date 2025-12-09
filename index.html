@@ -543,10 +543,10 @@
                     return;
                 }
                 
-                // Filter out the github.io repo itself and limit to top 3
+                // Filter out the github.io repo and p2pmentor repo, limit to top 4 (to include compass)
                 const projectRepos = repos
-                    .filter(repo => !repo.name.includes('github.io'))
-                    .slice(0, 3);
+                    .filter(repo => !repo.name.includes('github.io') && !repo.name.includes('p2pmentor'))
+                    .slice(0, 4);
                 
                 projectRepos.forEach((repo, index) => {
                     const plant = document.createElement('div');
