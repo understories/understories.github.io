@@ -882,6 +882,41 @@
         .mountain-icon:hover .mountain-tooltip {
             opacity: 1;
         }
+
+        /* Garden Log Button */
+        .garden-log-button {
+            display: inline-block;
+            margin-top: var(--spacing-lg); /* 3rem - consistent spacing */
+            margin-bottom: var(--spacing-lg); /* 3rem - consistent spacing */
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: rgba(200, 255, 200, 0.8);
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid rgba(150, 255, 150, 0.3);
+            border-radius: 4px;
+            background: rgba(10, 30, 10, 0.3);
+            transition: all 0.3s ease;
+            text-shadow: 
+                0 0 8px rgba(150, 255, 150, 0.4),
+                0 0 15px rgba(100, 255, 100, 0.2);
+            box-shadow: 
+                0 0 10px rgba(100, 255, 100, 0.2),
+                inset 0 0 10px rgba(50, 200, 50, 0.1);
+        }
+
+        .garden-log-button:hover {
+            color: rgba(220, 255, 220, 1);
+            border-color: rgba(150, 255, 150, 0.6);
+            background: rgba(10, 40, 10, 0.4);
+            box-shadow: 
+                0 0 15px rgba(150, 255, 150, 0.4),
+                0 0 25px rgba(100, 255, 100, 0.3),
+                inset 0 0 15px rgba(50, 200, 50, 0.2);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -909,6 +944,7 @@
             <div class="loading">Loading repositories</div>
         </div>
         <p class="subtitle-text" id="subtitle">seeding light in the dark forest</p>
+        <a href="garden-log.html" class="garden-log-button">garden log</a>
         <div class="gardeners-container">
             <div class="gardeners-label">gardeners</div>
             <div class="gardeners-avatars">
